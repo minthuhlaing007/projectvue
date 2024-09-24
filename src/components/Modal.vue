@@ -2,12 +2,10 @@
   <div class="backdrop" @click.self="closeModal">
     <div
       class="modal"
-      :class="{ success: theme === 'success'}"
+      :class="{ success: theme === 'success',danger:theme==='delete'}"
     >
      <slot><h1>this is default slot</h1></slot>
      <slot name="links"/>
-
-     
     </div>
   </div>
 </template>
@@ -41,5 +39,9 @@ export default {
 .success {
   background: green;
   color: white;
+}
+.danger{
+  background:crimson;
+  color:white;
 }
 </style>

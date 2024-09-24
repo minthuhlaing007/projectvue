@@ -8,7 +8,7 @@
   </p>
   <button @click.shift="changeHandler">shift click</button>
   <br />
-  <div v-if="showModal">
+  <teleport to=".modal" v-if="showModal">
     <Modal
       :theme="theme"
       @close="showModal = false"
@@ -23,20 +23,31 @@
       </ul>
     </template>
   </Modal>
-  </div>
-  <div v-if="deleteModal">
-    <Delete :color="color" @delete="deleteModal=false">
-      <h1>Are you sure you want to delete</h1>
-      <h3>Get the fuck out of my page</h3>
-    </Delete>
-  </div>
+  </teleport>
+
+  <teleport to=".modal" v-if="deleteModal">
+    <Modal
+      theme="delete"
+      @close="deleteModal = false"
+    > 
+    <h1>Are you sure you want to delete???</h1>
+    <p>See you Next time!!!!</p> 
+    <template v-slot:links>
+      <ul>
+        <li> One</li>
+        <li> two</li>
+        <li> three</li>
+      </ul>
+    </template>
+  </Modal>
+  </teleport>
+  
   <button @click="showModal = true">Show Model</button>
   <button @click="deleteModal = true">Delete Modal</button>
 </template>
 
 <script>
 import Modal from "./components/Modal.vue";
-import Delete from "./components/Delete.vue"
 export default {
   data() {
     return {
@@ -44,7 +55,6 @@ export default {
       content: "welcome user min thu hlaing",
       theme: "success",
       showModal: false,
-      color:"delete",
       deleteModal: false,
     };
   },
@@ -59,8 +69,7 @@ export default {
     },
   },
   components: {
-    Modal,
-    Delete
+    Modal
   },
 };
 </script>
